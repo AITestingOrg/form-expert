@@ -37,6 +37,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
+	testCompile 'pl.pragmatists:JUnitParams:1.1.1'
 }
 
 dependencyManagement {
