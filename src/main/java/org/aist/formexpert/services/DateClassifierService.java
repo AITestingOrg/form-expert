@@ -1,5 +1,7 @@
 package org.aist.formexpert.services;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
@@ -17,17 +19,22 @@ import static java.util.Calendar.YEAR;
 public class DateClassifierService {
     private final static String DATE_FORMAT = "MM/dd/yyyy";
 
+    private static final Logger logger = LoggerFactory.getLogger(DateClassifierService.class);
+
     public boolean isValidDate(String plainDate) {
+        logger.info("Checking if date is valid: " + plainDate);
         Date date = getDate(plainDate);
         return date != null;
     }
 
     public boolean isOver18(String plainDate){
+        logger.info("Checking if date is over 18: " + plainDate);
         Date givenDate = getDate(plainDate);
         return givenDate != null && getDiffYears(givenDate, new Date()) >= 18;
     }
 
     public boolean isOver21(String plainDate){
+        logger.info("Checking if date is over 21: " + plainDate);
         Date givenDate = getDate(plainDate);
         return givenDate != null && getDiffYears(givenDate, new Date()) >= 21;
     }

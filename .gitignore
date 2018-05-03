@@ -23,6 +23,11 @@ hs_err_pid*
 
 # IntelliJ
 out/
+.idea/**/compiler.xml
+.idea/**/modules.xml
+*.iml
+build/
+
 # User-specific stuff
 .idea/**/workspace.xml
 .idea/**/tasks.xml
@@ -38,5 +43,7 @@ out/
 .idea/**/uiDesigner.xml
 
 # Gradle
-.idea/**/gradle.xml
+.gradle
+#idea/**/gradle.xml
 .idea/**/libraries
+.DS_Store
