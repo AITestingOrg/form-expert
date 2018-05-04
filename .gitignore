@@ -32,6 +32,8 @@ build/
 .idea/**/tasks.xml
 .idea/**/dictionaries
 .idea/**/shelf
+.idea/**/vcs.xml
+.idea/**/compiler.xml
 
 # Sensitive or high-churn files
 .idea/**/dataSources/

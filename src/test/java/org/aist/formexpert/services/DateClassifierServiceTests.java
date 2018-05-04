@@ -1,12 +1,12 @@
 package org.aist.formexpert.services;
 
+import java.util.Date;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Date;
 
 @RunWith(JUnitParamsRunner.class)
 public class DateClassifierServiceTests {
@@ -73,5 +73,15 @@ public class DateClassifierServiceTests {
         Date first = dateClassifierService.getDate(from);
         Date last = dateClassifierService.getDate(to);
         Assert.assertEquals(dateClassifierService.getDiffYears(first, last), expected);
+    }
+
+    @Test
+    public void testIsOver18() {
+        Assert.assertEquals(dateClassifierService.isOver18("1/1/1990"), true);
+    }
+
+    @Test
+    public void testIsOver21() {
+        Assert.assertEquals(dateClassifierService.isOver21("1/1/1990"), true);
     }
 }
