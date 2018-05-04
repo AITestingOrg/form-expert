@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class FormExpertApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(FormExpertApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(FormExpertApplication.class, args);
+    }
 }
