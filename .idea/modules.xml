@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/form-expert.iml" filepath="$PROJECT_DIR$/form-expert.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/form-expert_main.iml" filepath="$PROJECT_DIR$/.idea/modules/form-expert_main.iml" group="form-expert" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/form-expert_test.iml" filepath="$PROJECT_DIR$/.idea/modules/form-expert_test.iml" group="form-expert" />
+    </modules>
+  </component>
+</project>
