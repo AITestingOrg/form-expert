@@ -16,6 +16,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'checkstyle'
 
 group = 'org.aist'
 version = '0.0.1'
@@ -44,5 +45,24 @@ dependencies {
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+checkstyle {
+	toolVersion = "8.7"
+	configFile = new File(rootDir, "checkstyle.xml")
+	maxWarnings = 0
+	maxErrors = 0
+}
+
+checkstyleMain {
+	source = fileTree('src/main') {
+		excludes = ['*.yml']
+	}
+}
+
+checkstyleTest {
+	source = fileTree('src/test') {
+		excludes = ['*.yml']
 	}
 }

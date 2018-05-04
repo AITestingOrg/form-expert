@@ -1,8 +1,6 @@
 package org.aist.formexpert.services;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Service;
+import static java.util.Calendar.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -10,15 +8,15 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.regex.Pattern;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
-import static java.util.Calendar.DATE;
-import static java.util.Calendar.MONTH;
-import static java.util.Calendar.YEAR;
 
 @Service
 public class DateClassifierService {
-    private final static String DATE_FORMAT = "MM/dd/yyyy";
 
+    private static final String DATE_FORMAT = "MM/dd/yyyy";
     private static final Logger logger = LoggerFactory.getLogger(DateClassifierService.class);
 
     public boolean isValidDate(String plainDate) {
@@ -27,21 +25,21 @@ public class DateClassifierService {
         return date != null;
     }
 
-    public boolean isOver18(String plainDate){
+    public boolean isOver18(String plainDate) {
         logger.info("Checking if date is over 18: " + plainDate);
         Date givenDate = getDate(plainDate);
         return givenDate != null && getDiffYears(givenDate, new Date()) >= 18;
     }
 
-    public boolean isOver21(String plainDate){
+    public boolean isOver21(String plainDate) {
         logger.info("Checking if date is over 21: " + plainDate);
         Date givenDate = getDate(plainDate);
         return givenDate != null && getDiffYears(givenDate, new Date()) >= 21;
     }
 
-    public Date getDate(String plainDate){
+    public Date getDate(String plainDate) {
         Pattern p = Pattern.compile("\\d{1,2}/\\d{1,2}/\\d+");
-        if(!p.matcher(plainDate).matches()){
+        if (!p.matcher(plainDate).matches()) {
             return null;
         }
 
@@ -59,7 +57,7 @@ public class DateClassifierService {
         Calendar from = getCalendar(first);
         Calendar to = getCalendar(last);
         int diff = to.get(YEAR) - from.get(YEAR);
-        if(from.get(MONTH) > to.get(MONTH) || (from.get(MONTH) == to.get(MONTH) && from.get(DATE) > to.get(DATE))) {
+        if (from.get(MONTH) > to.get(MONTH) || (from.get(MONTH) == to.get(MONTH) && from.get(DATE) > to.get(DATE))) {
             diff--;
         }
         return diff;
