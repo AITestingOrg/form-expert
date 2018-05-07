@@ -1,8 +1,9 @@
 package org.aist.formexpert.models;
 
 public enum InputTypes {
-    TEXT_INPUT,
+    TEXT,
+    TEXT_AREA,
     CHECKBOX,
-    RADIO_BUTTON,
+    RADIO,
     DROP_DOWN
 }

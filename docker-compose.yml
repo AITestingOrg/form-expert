@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  abstractor:
+    image: aista/abstractor
+    ports:
+      - "8080"
+
+  formexpert:
+    build: ./
+    ports:
+      - "8080"
+    depends_on:
+      - abstractor

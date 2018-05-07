@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class AddressValidatorService {
     private static final Logger logger = LoggerFactory.getLogger(AddressValidatorService.class);
-    private static String authId = System.getenv("SMART_AUTH_ID");
-    private static String authToken = System.getenv("SMART_AUTH_TOKEN");
-    private static StaticCredentials credentials = new StaticCredentials(authId, authToken);
-    private static Client client = new ClientBuilder(credentials).build();
+    private static final String authId = System.getenv("SMART_AUTH_ID");
+    private static final String authToken = System.getenv("SMART_AUTH_TOKEN");
+    private static final StaticCredentials credentials = new StaticCredentials(authId, authToken);
+    private static final Client client = new ClientBuilder(credentials).build();
 
     public boolean validateAddress(String address) {
         Lookup addressLookup = new Lookup(address);
