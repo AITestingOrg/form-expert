@@ -14,11 +14,11 @@ public class AddressValidatorServiceTest {
 
     @Test
     public void testInvalidAddressReturnsFalse() {
-        Assert.assertFalse(addressValidatorService.validateAddress("15 Knole Ln, Dennis MA"));
+        Assert.assertFalse(addressValidatorService.isValid("15 Knole Ln, Dennis MA"));
     }
 
     @Test
     public void testValidAddressReturnsTrue() {
-        Assert.assertTrue(addressValidatorService.validateAddress("1020 Old Bass River Rd, Dennis, MA"));
+        Assert.assertTrue(addressValidatorService.isValid("1020 Old Bass River Rd, Dennis, MA"));
     }
 }

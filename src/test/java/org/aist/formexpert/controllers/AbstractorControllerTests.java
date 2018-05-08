@@ -7,6 +7,7 @@ import static org.mockito.Mockito.verify;
 import java.util.List;
 import org.aist.formexpert.models.AbstractionRequest;
 import org.aist.formexpert.services.AbstractorService;
+import org.aist.formexpert.services.AddressValidatorService;
 import org.aist.formexpert.services.DateClassifierService;
 import org.junit.Assert;
 import org.junit.Test;
@@ -26,11 +27,16 @@ public class AbstractorControllerTests {
     @Mock
     private AbstractorService abstractorService;
 
-    private final AbstractionRequest request = new AbstractionRequest("label", "value");
+    @Mock
+    private DateClassifierService dateClassifierService;
+
+    @Mock
+    private AddressValidatorService addressValidatorService;
 
     @Test
     public void onGetAbstractionRequest_AbstractorServiceIsCalled() {
         //arrange
+        final AbstractionRequest request = new AbstractionRequest("label", "value");
 
         //act
         abstractorController.getAbstraction(request);
@@ -48,5 +54,41 @@ public class AbstractorControllerTests {
 
         //verify
         Assert.assertEquals(supportedList.getBody(), getSupported());
+    }
+
+    @Test
+    public void onGetAbstractionForDate_IsValidIsCalledForTheValue() {
+        //arrange
+        final AbstractionRequest dateRequest = new AbstractionRequest("date", "10/11/23");
+
+        //act
+        abstractorController.getAbstraction(dateRequest);
+
+        //verify
+        verify(dateClassifierService, times(1)).isValidDate(dateRequest.getValue());
+    }
+
+    @Test
+    public void onGetAbstractionForBirthday_IsValidIsCalledForTheValue() {
+        //arrange
+        final AbstractionRequest dateRequest = new AbstractionRequest("birthday", "10/11/23");
+
+        //act
+        abstractorController.getAbstraction(dateRequest);
+
+        //verify
+        verify(dateClassifierService, times(1)).isValidDate(dateRequest.getValue());
+    }
+
+    @Test
+    public void onGetAbstractionForAddress_IsValidIsCalledForTheValue() {
+        //arrange
+        final AbstractionRequest addressRequest = new AbstractionRequest("address", "value");
+
+        //act
+        abstractorController.getAbstraction(addressRequest);
+
+        //verify
+        verify(addressValidatorService, times(1)).isValid(addressRequest.getValue());
     }
 }
