@@ -9,7 +9,8 @@ public enum SupportedAbstractions {
     VALID_LAST_NAME,
     VALID_EMAIL,
     VALID_DATE,
-    VALID_ADDRESS;
+    VALID_ADDRESS,
+    INVALID;
 
     public static List<String> getSupported() {
         return Stream.of(values())

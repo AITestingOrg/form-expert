@@ -18,7 +18,7 @@ public class AddressValidatorService {
     private static final StaticCredentials credentials = new StaticCredentials(authId, authToken);
     private static final Client client = new ClientBuilder(credentials).build();
 
-    public boolean validateAddress(String address) {
+    public boolean isValid(String address) {
         Lookup addressLookup = new Lookup(address);
         try {
             logger.info("Trying to lookup " + address);
