@@ -17,6 +17,7 @@ apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'checkstyle'
+apply plugin: 'jacoco'
 
 group = 'org.aist'
 version = '0.0.1'
@@ -66,3 +67,28 @@ checkstyleTest {
 		excludes = ['*.yml']
 	}
 }
+
+jacocoTestReport {
+	reports {
+		html.destination file("${buildDir}/reports/jacoco")
+    }
+}
+
+jacocoTestCoverageVerification {
+	afterEvaluate {
+		classDirectories = files(classDirectories.files.collect {
+			fileTree(dir: "${buildDir}/classes/java/main",
+					exclude: ['**/models/**',
+                              '**/*ApiService.*'])
+		})
+	}
+	violationRules {
+		rule {
+			limit {
+				minimum = 0.80
+			}
+		}
+	}
+}
+
+test.finalizedBy(jacocoTestCoverageVerification)
