@@ -71,29 +71,24 @@ checkstyleTest {
 jacocoTestReport {
 	reports {
 		html.destination file("${buildDir}/reports/jacoco")
-	}
+    }
 }
 
 jacocoTestCoverageVerification {
 	afterEvaluate {
 		classDirectories = files(classDirectories.files.collect {
 			fileTree(dir: "${buildDir}/classes/java/main",
-					exclude: ['**/models/**'])
+					exclude: ['**/models/**',
+                              '**/*ApiService.*'])
 		})
 	}
 	violationRules {
 		rule {
 			limit {
-				minimum = 0.8
+				minimum = 0.80
 			}
 		}
 	}
 }
-test {
-	jacoco {
-		excludes = ['**/models/**']
-	}
-}
 
 test.finalizedBy(jacocoTestCoverageVerification)
-
