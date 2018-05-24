@@ -27,6 +27,7 @@ public class LabelMultiplexerTemplate extends ApiHttpTemplate<Label, Label> {
             if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
                 label = new Label(labelValue);
                 this.create("", label);
+                return null;
             }
             throw new Exception(String.format("Something is wrong with teh Label Multiplexer, got \"%s\"", labelValue));
         }

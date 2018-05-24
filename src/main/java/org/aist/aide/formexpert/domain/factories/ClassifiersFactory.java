@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 @Component
 public class ClassifiersFactory {
     private static final Logger LOGGER = Logger.getLogger(ClassifiersFactory.class.getName());
+
     private LabelMultiplexerTemplate multiplexerTemplate;
 
     public ClassifiersFactory(@Autowired LabelMultiplexerTemplate multiplexerTemplate) {
