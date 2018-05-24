@@ -1,7 +1,8 @@
-package org.aist.aide.formexpert.service.api;
+package org.aist.aide.formexpert.service.api.http;
 
 import org.aist.aide.formexpert.domain.models.Mapping;
 import org.aist.aide.formexpert.domain.models.Services;
+import org.aist.aide.formexpert.service.api.http.ApiHttpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -13,8 +14,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class MappingService extends ApiHttpTemplate<Mapping, Mapping> {
-    public MappingService(@Autowired RestTemplate restTemplate) {
+public class MappingTemplate extends ApiHttpTemplate<Mapping, Mapping> {
+    public MappingTemplate(@Autowired RestTemplate restTemplate) {
         super(restTemplate);
         service = Services.MAPPINGSERVICE;
         port = 8080;

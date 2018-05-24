@@ -5,5 +5,6 @@ public enum Services {
     FINITE_HORIZON_SERVICE,
     API_SERVICE,
     MAPPINGSERVICE,
-    LOCALHOST
+    LOCALHOST,
+    LABELSERVICE
 }

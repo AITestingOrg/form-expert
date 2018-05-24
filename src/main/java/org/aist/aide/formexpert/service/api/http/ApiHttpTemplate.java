@@ -1,4 +1,4 @@
-package org.aist.aide.formexpert.service.api;
+package org.aist.aide.formexpert.service.api.http;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -6,14 +6,13 @@ import java.util.List;
 import org.aist.aide.formexpert.domain.models.Services;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.*;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
-@Service
+@Component
 public abstract class ApiHttpTemplate<T, K> {
     private static final Logger logger = LoggerFactory.getLogger(ApiHttpTemplate.class);
     protected Services service;
@@ -31,7 +30,7 @@ public abstract class ApiHttpTemplate<T, K> {
         this.restTemplate = restTemplate;
     }
 
-    public T getOne(String path) {
+    protected T getOne(String path) {
         String uri = buildUri(path);
         logger.info("Sending a GET request to " + uri);
         ResponseEntity<String> exchange = this.restTemplate.exchange(
@@ -45,7 +44,7 @@ public abstract class ApiHttpTemplate<T, K> {
         return gson.fromJson(exchange.getBody(), type);
     }
 
-    public List<T> getMany(String path) {
+    protected List<T> getMany(String path) {
         String uri = buildUri(path);
         logger.info("Sending a GET request to " + uri);
         ResponseEntity<List<T>> exchange = this.restTemplate.exchange(
@@ -56,7 +55,7 @@ public abstract class ApiHttpTemplate<T, K> {
         return exchange.getBody();
     }
 
-    public String create(String path, K obj) {
+    protected String create(String path, K obj) {
         String uri = buildUri(path);
         logger.info("Sending a POST request to " + uri);
         logger.info("obj to send: " + obj);
@@ -74,13 +73,13 @@ public abstract class ApiHttpTemplate<T, K> {
         return exchange.getBody();
     }
 
-    public void update(String path, K obj) {
+    protected void update(String path, K obj) {
         String uri = buildUri(path);
         logger.info("Sending a PUT request to " + uri);
         this.restTemplate.put(uri, obj);
     }
 
-    public void delete(String path) {
+    protected void delete(String path) {
         String uri = buildUri(path);
         logger.info("Sending a PUT request to " + uri);
         this.restTemplate.delete(uri);
