@@ -1,14 +1,79 @@
-version: '3'
+version: "3"
 
 services:
-  abstractor:
-    image: aista/abstractor
-    ports:
-      - "8080"
-
   formexpert:
     build: ./
     ports:
-      - "8080"
+      - '8080:8080'
     depends_on:
-      - abstractor
+     - mappingservice
+     - discoveryservice
+#     - finitehorizonservice
+#     - generaltypeservice
+
+  mappingservice:
+    image: aista/mapping-service:local
+    volumes:
+      - ./src:/usr/src/app
+    ports:
+      - '8082:8080'
+    links:
+      - postgres
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: 'mapping_db'
+      POSTGRES_PASSWORD: "postgres"
+      POSTGRES_USER: "postgres"
+      PGDATA: ./postgres-data
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./db_volume:/var/lib/postgresql
+#
+#  finitehorizonservice:
+#    image: aista/finite-horizon-service
+#    volumes:
+#      - ./src:/usr/src/app
+#    ports:
+#      - '8080'
+#    depends_on:
+#      - mongo
+#      - discoveryservice
+#
+#   generaltypeservice:
+#    image: aista/general-type-service
+#      volumes:
+#        - ./src:/usr/src/app
+#      ports:
+#        - '8080:8080'
+#      depends_on:
+#        - mongo
+#        - discoveryservice
+#
+#  mongo:
+#    image: mongo:latest
+#    restart: always
+#    environment:
+#      - MONGO_DATA_DIR=/data/db
+#      - MONGO_LOG_DIR=/dev/null
+#      - MONGODB_USER=user
+#      - MONGODB_PASS=pass
+#    volumes:
+#      - ./data/db:/data/db
+#    ports:
+#      - '27017:27017'
+#  mongo-seed:
+#    build: ./mongo-seed
+#    depends_on:
+#      - mongo
+#    restart: on-failure
+
+  discoveryservice:
+    image: springcloud/eureka
+    ports:
+      - "8761:8761"
