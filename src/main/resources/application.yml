@@ -1,2 +1,26 @@
+
+spring:
+  application:
+    name: formexpert
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://discoveryservice:8761/eureka/
+    fetch-registry: false
 aist:
   use_ssl: false
+
+logging:
+  level:
+    root: INFO
+    org:
+      springframework:
+        security: DEBUG
+        web:
+          filter:
+            CommonsRequestLoggingFilter: INFO
+      hibernate: DEBUG
+      apache:
+        commons:
+          dbcp2: DEBUG

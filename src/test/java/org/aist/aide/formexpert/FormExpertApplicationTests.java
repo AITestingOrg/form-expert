@@ -1,4 +1,4 @@
-package org.aist.formexpert;
+package org.aist.aide.formexpert;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

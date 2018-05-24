@@ -1,11 +1,9 @@
 buildscript {
 	ext {
-		springBootVersion = '2.1.0.BUILD-SNAPSHOT'
+		springBootVersion = '2.0.2.RELEASE'
 	}
 	repositories {
 		mavenCentral()
-		maven { url "https://repo.spring.io/snapshot" }
-		maven { url "https://repo.spring.io/milestone" }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
@@ -16,11 +14,10 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
-apply plugin: 'checkstyle'
 
-group = 'org.aist'
-version = '0.0.1'
-sourceCompatibility = 1.8
+group = 'org.aist.aide'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 10
 
 repositories {
 	mavenCentral()
@@ -34,35 +31,16 @@ ext {
 }
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-mongodb')
-	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
-	compile('com.smartystreets.api:smartystreets-java-sdk:1.0.4')
+	compile('org.springframework.cloud:spring-cloud-starter-netflix-ribbon')
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile('javax.validation:validation-api')
+	compile "org.springframework.boot:spring-boot-starter-cloud-connectors:${springBootVersion}"
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	testCompile 'pl.pragmatists:JUnitParams:1.1.1'
 }
 
 dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-	}
-}
-
-checkstyle {
-	toolVersion = "8.7"
-	configFile = new File(rootDir, "checkstyle.xml")
-	maxWarnings = 0
-	maxErrors = 0
-}
-
-checkstyleMain {
-	source = fileTree('src/main') {
-		excludes = ['*.yml']
-	}
-}
-
-checkstyleTest {
-	source = fileTree('src/test') {
-		excludes = ['*.yml']
 	}
 }
