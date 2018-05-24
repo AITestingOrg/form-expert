@@ -11,10 +11,14 @@ public class Pipe<T> {
         this.queue = queue;
     }
 
-    public T exec(T obj) {
+    public T exec(T obj) throws Exception {
         while(!queue.isEmpty()) {
             var filter = queue.poll();
-            obj = filter.run(obj);
+            var result = filter.run(obj);
+            if(result == null) {
+                throw new Exception();
+            }
+            obj = result;
         }
         return obj;
     }
