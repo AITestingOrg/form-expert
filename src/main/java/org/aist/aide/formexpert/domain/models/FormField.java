@@ -4,22 +4,27 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.util.List;
-import java.util.Map;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class FormField {
     private String label;
-    private String mLabel;
+    private String multiplexLabel;
     private Mapping mapping;
     private String type;
     private String value;
     private List<Abstraction> abstractions;
     private String abstraction;
 
-    public FormField(String label, String mLabel, Mapping mapping, String type, String value, List<Abstraction> abstractions) {
+    public FormField(
+            String label,
+            String multiplexLabel,
+            Mapping mapping,
+            String type,
+            String value,
+            List<Abstraction> abstractions) {
         this.label = label;
-        this.mLabel = mLabel;
+        this.multiplexLabel = multiplexLabel;
         this.mapping = mapping;
         this.type = type;
         this.value = value;
@@ -42,8 +47,8 @@ public class FormField {
         return label;
     }
 
-    public String getmLabel() {
-        return mLabel;
+    public String getMultiplexLabel() {
+        return multiplexLabel;
     }
 
     public Mapping getMapping() {
@@ -66,8 +71,8 @@ public class FormField {
         this.label = label;
     }
 
-    public void setmLabel(String mLabel) {
-        this.mLabel = mLabel;
+    public void setMultiplexLabel(String multiplexLabel) {
+        this.multiplexLabel = multiplexLabel;
     }
 
     public void setMapping(Mapping mapping) {

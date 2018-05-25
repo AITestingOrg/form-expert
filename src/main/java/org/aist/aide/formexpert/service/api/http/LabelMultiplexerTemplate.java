@@ -23,7 +23,7 @@ public class LabelMultiplexerTemplate extends ApiHttpTemplate<Label, Label> {
         try {
             label = this.getOne("name/" + labelValue);
             return label.getLabel().getName();
-        } catch(HttpStatusCodeException e ) {
+        } catch (HttpStatusCodeException e) {
             if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
                 label = new Label(labelValue);
                 this.create("", label);
