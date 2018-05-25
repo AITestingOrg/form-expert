@@ -2,6 +2,7 @@ package org.aist.aide.formexpert.service.controllers;
 
 import org.aist.aide.formexpert.domain.factories.ClassifiersFactory;
 import org.aist.aide.formexpert.domain.models.Form;
+import org.aist.aide.formexpert.domain.models.Mapping;
 import org.aist.aide.formexpert.domain.models.pipe.ClassificationPipe;
 import org.aist.aide.formexpert.domain.models.pipe.filters.Filter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,11 @@ public class AbstractionController {
             var queue = new LinkedList<Filter<Form>>();
             queue.add(classifiersFactory.createLabelMultiplexFilter());
             queue.add(classifiersFactory.createTypeFilter());
+            queue.add(classifiersFactory.createMappingFilter());
             var pipe = new ClassificationPipe(queue);
             return new ResponseEntity<>(pipe.exec(form), HttpStatus.OK);
         } catch(Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
     }
 }
