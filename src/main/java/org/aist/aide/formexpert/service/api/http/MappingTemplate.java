@@ -40,4 +40,8 @@ public class MappingTemplate extends ApiHttpTemplate<Mapping, Mapping> {
 
         return Arrays.asList(exchange.getBody());
     }
+
+    public Mapping getKnownMapping(Mapping mapping) {
+        return getOne(String.format("%s/%s", mapping.getLabel(), mapping.getType()));
+    }
 }
