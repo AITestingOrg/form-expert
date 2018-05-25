@@ -32,6 +32,7 @@ public class AbstractionController {
             queue.add(classifiersFactory.createMappingFilter());
             queue.add(classifiersFactory.createSpaCyFilter());
             queue.add(classifiersFactory.createFiniteHorizonFilter());
+            queue.add(classifiersFactory.createAbstractionFieldReducer());
             var pipe = new ClassificationPipe(queue);
             return new ResponseEntity<>(pipe.exec(form), HttpStatus.OK);
         } catch (Exception e) {

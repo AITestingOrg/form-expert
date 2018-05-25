@@ -15,6 +15,7 @@ public class FormField {
     private String value;
     private List<Abstraction> abstractions;
     private String abstraction;
+    private String defaultAbstration;
 
     public FormField(
             String label,
@@ -22,13 +23,17 @@ public class FormField {
             Mapping mapping,
             String type,
             String value,
-            List<Abstraction> abstractions) {
+            List<Abstraction> abstractions,
+            String abstraction,
+            String defaultAbstration) {
         this.label = label;
         this.multiplexLabel = multiplexLabel;
         this.mapping = mapping;
         this.type = type;
         this.value = value;
         this.abstractions = abstractions;
+        this.abstraction = abstraction;
+        this.defaultAbstration = defaultAbstration;
     }
 
     public void addAbstraction(Abstraction abstraction) {

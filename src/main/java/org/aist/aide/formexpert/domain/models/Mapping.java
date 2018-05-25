@@ -2,6 +2,10 @@ package org.aist.aide.formexpert.domain.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import java.io.Serializable;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 import javax.validation.constraints.NotBlank;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -14,29 +18,25 @@ public class Mapping implements Serializable {
     @NotBlank
     private String type;
 
-    private String abstraction;
+    private TreeSet<Classifier> classifiers;
 
-    private Services service;
+    private String defaultAbstration;
 
-    public Mapping() {
-    }
-
-    public Mapping(@NotBlank String label, @NotBlank String type, String abstraction) {
-        this.label = label;
-        this.type = type;
-        this.abstraction = abstraction;
-    }
-
-    public Mapping(long id, @NotBlank String label, @NotBlank String type, String abstraction) {
+    public Mapping(long id, @NotBlank String label, @NotBlank String type, TreeSet<Classifier> classifiers, String defaultAbstration) {
         this.id = id;
         this.label = label;
         this.type = type;
-        this.abstraction = abstraction;
+        this.classifiers = classifiers;
+        this.defaultAbstration = defaultAbstration;
     }
 
     public Mapping(@NotBlank String label, @NotBlank String type) {
         this.label = label;
         this.type = type;
+    }
+
+    public String getDefaultAbstraction() {
+        return defaultAbstration;
     }
 
     public long getId() {
@@ -51,37 +51,7 @@ public class Mapping implements Serializable {
         return type;
     }
 
-    public String getAbstraction() {
-        return abstraction;
-    }
-
-    public Services getService() {
-        return service;
-    }
-
-    public void setLabel(String label) {
-        this.label = label;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public void setAbstraction(String abstraction) {
-        this.abstraction = abstraction;
-    }
-
-    public void setService(Services service) {
-        this.service = service;
-    }
-
-    public boolean compareTo(Mapping that) {
-        if (!this.type.equals(that.getType())) {
-            return false;
-        }
-        if (!this.label.equals(that.getLabel())) {
-            return false;
-        }
-        return this.abstraction.equals(that.getAbstraction());
+    public Set<Classifier> getClassifiers() {
+        return classifiers;
     }
 }

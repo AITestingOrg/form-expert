@@ -113,7 +113,6 @@ public class ClassifiersFactory {
                                     field.getMultiplexLabel(),
                                     field.getType()));
                     field.setMapping(mapping);
-                    field.addAbstraction(new Abstraction(mapping.getService(), mapping.getAbstraction()));
                 } catch (HttpClientErrorException e) {
                     if (e.getStatusCode() != HttpStatus.NOT_FOUND) {
                         LOGGER.severe(e.getStackTrace().toString());
@@ -128,16 +127,25 @@ public class ClassifiersFactory {
         });
     }
 
-    public Filter<Form> createAbstractionReducer() {
+    public Filter<Form> createAbstractionFieldReducer() {
         return new Filter<>(form -> {
-            var abstractionMap = new HashMap<String, String>();
+            var abstractionMap = new HashMap<Services, String>();
             for (var field: form.getFields()) {
+                if (field.getMapping().getDefaultAbstraction() != null && !field.getMapping().getDefaultAbstraction().isEmpty()) {
+                    field.setAbstraction(field.getMapping().getDefaultAbstraction());
+                    continue;
+                }
                 field.getAbstractions().forEach(abstraction -> {
                     if (abstraction.getAbstraction() != null && !abstraction.getAbstraction().isEmpty()) {
-                        abstractionMap.put(abstraction.getService().toString(), abstraction.getAbstraction());
+                        abstractionMap.put(abstraction.getService(), abstraction.getAbstraction());
                     }
                 });
-                // todo find best service and update abstraction for field
+                for (var classifier: field.getMapping().getClassifiers()) {
+                    if (abstractionMap.containsKey(classifier.getService())) {
+                        field.setAbstraction(abstractionMap.get(classifier.getService()));
+                        break;
+                    }
+                }
             }
             return form;
         });
