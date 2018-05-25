@@ -11,15 +11,16 @@ import java.util.Map;
 public class FormField {
     private String label;
     private String mLabel;
-    private List<Mapping> mappings;
+    private Mapping mapping;
     private String type;
     private String value;
     private List<Abstraction> abstractions;
+    private String abstraction;
 
-    public FormField(String label, String mLabel, List<Mapping> mappings, String type, String value, List<Abstraction> abstractions) {
+    public FormField(String label, String mLabel, Mapping mapping, String type, String value, List<Abstraction> abstractions) {
         this.label = label;
         this.mLabel = mLabel;
-        this.mappings = mappings;
+        this.mapping = mapping;
         this.type = type;
         this.value = value;
         this.abstractions = abstractions;
@@ -29,8 +30,12 @@ public class FormField {
         abstractions.add(abstraction);
     }
 
-    public void addMapping(Mapping mapping) {
-        mappings.add(mapping);
+    public String getAbstraction() {
+        return abstraction;
+    }
+
+    public void setAbstraction(String abstraction) {
+        this.abstraction = abstraction;
     }
 
     public String getLabel() {
@@ -41,8 +46,8 @@ public class FormField {
         return mLabel;
     }
 
-    public List<Mapping> getMappings() {
-        return mappings;
+    public Mapping getMapping() {
+        return mapping;
     }
 
     public String getType() {
@@ -65,8 +70,8 @@ public class FormField {
         this.mLabel = mLabel;
     }
 
-    public void setMappings(List<Mapping> mappings) {
-        this.mappings = mappings;
+    public void setMapping(Mapping mapping) {
+        this.mapping = mapping;
     }
 
     public void setType(String type) {

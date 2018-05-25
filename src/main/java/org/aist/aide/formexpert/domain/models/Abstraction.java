@@ -2,7 +2,7 @@ package org.aist.aide.formexpert.domain.models;
 
 public class Abstraction {
     private final Services service;
-    private final String abstraction;
+    private String abstraction;
 
     public Abstraction(Services service, String abstraction) {
         this.service = service;
@@ -15,5 +15,9 @@ public class Abstraction {
 
     public Services getService() {
         return service;
+    }
+
+    public void setAbstraction(String abstraction) {
+        this.abstraction = abstraction;
     }
 }

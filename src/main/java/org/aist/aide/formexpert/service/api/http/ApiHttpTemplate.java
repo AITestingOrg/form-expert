@@ -14,7 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Component
 public abstract class ApiHttpTemplate<T, K> {
-    private static final Logger logger = LoggerFactory.getLogger(ApiHttpTemplate.class);
+    protected static final Logger logger = LoggerFactory.getLogger(ApiHttpTemplate.class);
     protected Services service;
     protected int port;
     protected Class<T> type;
@@ -55,7 +55,7 @@ public abstract class ApiHttpTemplate<T, K> {
         return exchange.getBody();
     }
 
-    protected String create(String path, K obj) {
+    protected T create(String path, K obj) {
         String uri = buildUri(path);
         logger.info("Sending a POST request to " + uri);
         logger.info("obj to send: " + obj);
@@ -63,11 +63,11 @@ public abstract class ApiHttpTemplate<T, K> {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<K> entity = new HttpEntity<>(obj, headers);
         logger.info("entity to send: " + entity);
-        ResponseEntity<String> exchange = this.restTemplate.exchange(
+        ResponseEntity<T> exchange = this.restTemplate.exchange(
             uri,
             HttpMethod.POST,
             entity,
-            String.class);
+            type);
         logger.info("Got a reply back");
         logger.info("Reply: " + exchange);
         return exchange.getBody();
