@@ -22,18 +22,21 @@ public class ClassifiersFactory {
     private MappingTemplate mappingTemplate;
     private SpaCyTemplate spaCyTemplate;
     private FiniteHorizonTemplate finiteHorizonTemplate;
+    private WarehouseTemplate warehouseTemplate;
 
     public ClassifiersFactory(
             @Autowired LabelMultiplexerTemplate multiplexerTemplate,
             @Autowired GeneralTypeTemplate generalTypeTemplate,
             @Autowired MappingTemplate mappingTemplate,
             @Autowired SpaCyTemplate spaCyTemplate,
-            @Autowired FiniteHorizonTemplate finiteHorizonTemplate) {
+            @Autowired FiniteHorizonTemplate finiteHorizonTemplate,
+            @Autowired WarehouseTemplate warehouseTemplate) {
         this.multiplexerTemplate = multiplexerTemplate;
         this.generalTypeTemplate = generalTypeTemplate;
         this.mappingTemplate = mappingTemplate;
         this.spaCyTemplate = spaCyTemplate;
         this.finiteHorizonTemplate = finiteHorizonTemplate;
+        this.warehouseTemplate = warehouseTemplate;
     }
 
     public Filter<Form> createLabelMultiplexFilter() {
@@ -145,6 +148,17 @@ public class ClassifiersFactory {
                         break;
                     }
                 }
+            }
+            return form;
+        });
+    }
+
+    public Filter<Form> createWarehouseFilter() {
+        return new Filter<>(form -> {
+            try {
+                warehouseTemplate.createRow(form);
+            } catch (HttpClientErrorException e) {
+                return null;
             }
             return form;
         });
