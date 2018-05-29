@@ -133,7 +133,8 @@ public class ClassifiersFactory {
         return new Filter<>(form -> {
             var abstractionMap = new HashMap<String, String>();
             for (var field: form.getFields()) {
-                if (field.getMapping().getDefaultAbstraction() != null && !field.getMapping().getDefaultAbstraction().isEmpty()) {
+                if (field.getMapping().getDefaultAbstraction() != null && !field.getMapping()
+                        .getDefaultAbstraction().isEmpty()) {
                     field.setAbstraction(field.getMapping().getDefaultAbstraction());
                     continue;
                 }
