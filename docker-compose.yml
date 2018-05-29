@@ -6,21 +6,24 @@ services:
     ports:
       - '8080:8080'
     depends_on:
-     - mappingservice
-     - discoveryservice
-#     - finitehorizonservice
-#     - generaltypeservice
+      - mappingservice
+      - discoveryservice
+      - finitehorizonservice
+      - generaltypeservice
+      - labelmultiplexservice
+      - formexpertwarehouse
 
   mappingservice:
-    image: aista/mapping-service:local
+    image: aista/mapping-service
     volumes:
       - ./src:/usr/src/app
     ports:
       - '8082:8080'
     links:
-      - postgres
+      - mongo
     depends_on:
-      - postgres
+      - mongo
+      - discoveryservice
 
   postgres:
     image: postgres
@@ -34,44 +37,64 @@ services:
       - '5432:5432'
     volumes:
       - ./db_volume:/var/lib/postgresql
-#
-#  finitehorizonservice:
-#    image: aista/finite-horizon-service
-#    volumes:
-#      - ./src:/usr/src/app
-#    ports:
-#      - '8080'
-#    depends_on:
-#      - mongo
-#      - discoveryservice
-#
-#   generaltypeservice:
-#    image: aista/general-type-service
-#      volumes:
-#        - ./src:/usr/src/app
-#      ports:
-#        - '8080:8080'
-#      depends_on:
-#        - mongo
-#        - discoveryservice
-#
-#  mongo:
-#    image: mongo:latest
-#    restart: always
-#    environment:
-#      - MONGO_DATA_DIR=/data/db
-#      - MONGO_LOG_DIR=/dev/null
-#      - MONGODB_USER=user
-#      - MONGODB_PASS=pass
-#    volumes:
-#      - ./data/db:/data/db
-#    ports:
-#      - '27017:27017'
-#  mongo-seed:
-#    build: ./mongo-seed
-#    depends_on:
-#      - mongo
-#    restart: on-failure
+
+  finitehorizonservice:
+    image: aista/finite-horizon-service
+    volumes:
+      - ./src:/usr/src/finite-horizon-service
+    ports:
+      - '8083:8080'
+    depends_on:
+      - mongo
+      - discoveryservice
+
+  generaltypeservice:
+    image: aista/general-type-service
+      volumes:
+        - ./src:/usr/src/general-type-service
+      ports:
+        - '8084:8080'
+      depends_on:
+        - mongo
+        - discoveryservice
+
+  labelmultiplexservice:
+    image: aista/label-multiplex-service
+      volumes:
+        - ./src:/usr/src/labelmultiplexservice
+      ports:
+        - '8085:8080'
+      depends_on:
+        - postgres
+        - discoveryservice
+
+  formexpertwarehouse:
+      image: aista/form-expert-warehouse
+        volumes:
+          - ./src:/usr/src/formexpertwarehouse
+        ports:
+          - '8086:8080'
+        depends_on:
+          - mongo
+          - discoveryservice
+
+  mongo:
+    image: mongo:latest
+    restart: always
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+      - MONGODB_USER=user
+      - MONGODB_PASS=pass
+    volumes:
+      - ./data/db:/data/db
+    ports:
+      - '27017:27017'
+  mongo-seed:
+    build: ./mongo-seed
+    depends_on:
+      - mongo
+    restart: on-failure
 
   discoveryservice:
     image: springcloud/eureka

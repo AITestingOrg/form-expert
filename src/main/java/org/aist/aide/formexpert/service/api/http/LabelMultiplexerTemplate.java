@@ -1,6 +1,6 @@
 package org.aist.aide.formexpert.service.api.http;
 
-import org.aist.aide.formexpert.domain.models.Label;
+import org.aist.aide.formexpert.common.models.Label;
 import org.aist.aide.formexpert.domain.models.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +23,7 @@ public class LabelMultiplexerTemplate extends ApiHttpTemplate<Label, Label> {
         try {
             label = this.getOne("name/" + labelValue);
             return label.getLabel().getName();
-        } catch(HttpStatusCodeException e ) {
+        } catch (HttpStatusCodeException e) {
             if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
                 label = new Label(labelValue);
                 this.create("", label);
