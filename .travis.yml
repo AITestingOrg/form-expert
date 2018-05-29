@@ -24,6 +24,6 @@ after_success:
   - docker -v
   - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
   - set +e
-  - export REPO=aista/mapping-service
+  - export REPO=aista/form-expert
   - docker build -t $REPO:$TRAVIS_TAG -t $REPO:latest .
   - docker push $REPO
