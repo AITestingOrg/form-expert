@@ -3,9 +3,8 @@ package org.aist.aide.formexpert.domain.factories;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
-import org.aist.aide.formexpert.domain.models.Abstraction;
-import org.aist.aide.formexpert.domain.models.Form;
-import org.aist.aide.formexpert.domain.models.Mapping;
+import org.aist.aide.formexpert.common.models.Form;
+import org.aist.aide.formexpert.common.models.Mapping;
 import org.aist.aide.formexpert.domain.models.Services;
 import org.aist.aide.formexpert.domain.models.pipe.filters.Filter;
 import org.aist.aide.formexpert.service.api.http.*;
@@ -72,7 +71,7 @@ public class ClassifiersFactory {
                 try {
                     var result = spaCyTemplate.getAbstraction(field);
                     field.getAbstractions().forEach(abstraction -> {
-                        if (abstraction.getService() == Services.SPACYSERVICE) {
+                        if (abstraction.getService() == Services.SPACYSERVICE.name()) {
                             abstraction.setAbstraction(result);
                         }
                     });
@@ -91,7 +90,7 @@ public class ClassifiersFactory {
                 try {
                     var result = finiteHorizonTemplate.getAbstraction(field);
                     field.getAbstractions().forEach(abstraction -> {
-                        if (abstraction.getService() == Services.FINITEHORIZONSERVICE) {
+                        if (abstraction.getService() == Services.FINITEHORIZONSERVICE.name()) {
                             abstraction.setAbstraction(result);
                         }
                     });
@@ -129,7 +128,7 @@ public class ClassifiersFactory {
 
     public Filter<Form> createAbstractionFieldReducer() {
         return new Filter<>(form -> {
-            var abstractionMap = new HashMap<Services, String>();
+            var abstractionMap = new HashMap<String, String>();
             for (var field: form.getFields()) {
                 if (field.getMapping().getDefaultAbstraction() != null && !field.getMapping().getDefaultAbstraction().isEmpty()) {
                     field.setAbstraction(field.getMapping().getDefaultAbstraction());
@@ -137,7 +136,7 @@ public class ClassifiersFactory {
                 }
                 field.getAbstractions().forEach(abstraction -> {
                     if (abstraction.getAbstraction() != null && !abstraction.getAbstraction().isEmpty()) {
-                        abstractionMap.put(abstraction.getService(), abstraction.getAbstraction());
+                        abstractionMap.put(abstraction.getAbstraction(), abstraction.getAbstraction());
                     }
                 });
                 for (var classifier: field.getMapping().getClassifiers()) {

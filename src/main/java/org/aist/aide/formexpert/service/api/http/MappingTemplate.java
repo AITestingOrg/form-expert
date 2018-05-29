@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.aist.aide.formexpert.domain.models.Mapping;
+import org.aist.aide.formexpert.common.models.Mapping;
 import org.aist.aide.formexpert.domain.models.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
@@ -24,8 +24,7 @@ public class MappingTemplate extends ApiHttpTemplate<Mapping, Mapping> {
 
     public List<Mapping> getKnown(String path) {
         var mappings = getMany(path);
-        return mappings.stream().filter(x -> x.getAbstraction() != null)
-                                .collect(Collectors.toList());
+        return mappings.stream().collect(Collectors.toList());
     }
 
     @Override

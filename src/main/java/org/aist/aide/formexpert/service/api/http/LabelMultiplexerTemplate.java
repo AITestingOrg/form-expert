@@ -1,6 +1,6 @@
 package org.aist.aide.formexpert.service.api.http;
 
-import org.aist.aide.formexpert.domain.models.Label;
+import org.aist.aide.formexpert.common.models.Label;
 import org.aist.aide.formexpert.domain.models.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

@@ -1,6 +1,6 @@
 package org.aist.aide.formexpert.service.api.http;
 
-import org.aist.aide.formexpert.domain.models.FormField;
+import org.aist.aide.formexpert.common.models.FormField;
 import org.aist.aide.formexpert.domain.models.Services;
 import org.aist.aide.formexpert.domain.models.SpaCyAbstractionDto;
 import org.springframework.beans.factory.annotation.Autowired;

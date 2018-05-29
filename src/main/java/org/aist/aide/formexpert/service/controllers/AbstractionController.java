@@ -2,8 +2,8 @@ package org.aist.aide.formexpert.service.controllers;
 
 import java.util.LinkedList;
 
+import org.aist.aide.formexpert.common.models.Form;
 import org.aist.aide.formexpert.domain.factories.ClassifiersFactory;
-import org.aist.aide.formexpert.domain.models.Form;
 import org.aist.aide.formexpert.domain.models.pipe.ClassificationPipe;
 import org.aist.aide.formexpert.domain.models.pipe.filters.Filter;
 import org.springframework.beans.factory.annotation.Autowired;

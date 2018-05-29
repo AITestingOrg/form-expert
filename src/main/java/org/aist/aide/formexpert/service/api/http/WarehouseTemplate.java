@@ -8,19 +8,18 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class FiniteHorizonTemplate extends ApiHttpTemplate<String, FormField> {
-    public FiniteHorizonTemplate(@Autowired RestTemplate restTemplate) {
+public class WarehouseTemplate extends ApiHttpTemplate<String, FormField> {
+    public WarehouseTemplate(@Autowired RestTemplate restTemplate) {
         super(restTemplate);
-        service = Services.FINITEHORIZONSERVICE;
+        service = Services.FORMEXPERTWAREHOUSE;
         port = 8080;
         type = String.class;
-        prefix = "api/v1/abstractions";
+        prefix = "api/v1/unlabelled";
     }
 
-    public String getAbstraction(FormField field) {
-        String type;
+    public String createRow(FormField field) {
         try {
-            return this.getOne("");
+            return this.create("", field);
         } catch (HttpClientErrorException e) {
             return null;
         }

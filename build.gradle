@@ -11,7 +11,6 @@ buildscript {
 }
 
 apply plugin: 'java'
-apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: "jacoco"
@@ -38,6 +37,7 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile('javax.validation:validation-api')
 	compile "org.springframework.boot:spring-boot-starter-cloud-connectors:${springBootVersion}"
+	compile files("libs/form-expert-common-1.0.jar")
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
