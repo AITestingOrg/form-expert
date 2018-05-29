@@ -6,10 +6,12 @@ services:
     ports:
       - '8080:8080'
     depends_on:
-     - mappingservice
-     - discoveryservice
-#     - finitehorizonservice
-#     - generaltypeservice
+      - mappingservice
+      - discoveryservice
+      - finitehorizonservice
+      - generaltypeservice
+      - labelmultiplexservice
+      - formexpertwarehouse
 
   mappingservice:
     image: aista/mapping-service
@@ -39,22 +41,42 @@ services:
   finitehorizonservice:
     image: aista/finite-horizon-service
     volumes:
-      - ./src:/usr/src/app
+      - ./src:/usr/src/finite-horizon-service
     ports:
-      - '8080'
+      - '8083:8080'
     depends_on:
       - mongo
       - discoveryservice
 
-   generaltypeservice:
+  generaltypeservice:
     image: aista/general-type-service
       volumes:
-        - ./src:/usr/src/app
+        - ./src:/usr/src/general-type-service
       ports:
-        - '8080:8080'
+        - '8084:8080'
       depends_on:
         - mongo
         - discoveryservice
+
+  labelmultiplexservice:
+    image: aista/label-multiplex-service
+      volumes:
+        - ./src:/usr/src/labelmultiplexservice
+      ports:
+        - '8085:8080'
+      depends_on:
+        - postgres
+        - discoveryservice
+
+  formexpertwarehouse:
+      image: aista/form-expert-warehouse
+        volumes:
+          - ./src:/usr/src/formexpertwarehouse
+        ports:
+          - '8086:8080'
+        depends_on:
+          - mongo
+          - discoveryservice
 
   mongo:
     image: mongo:latest
