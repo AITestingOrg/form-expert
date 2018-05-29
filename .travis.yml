@@ -1,29 +1,22 @@
 language: java
-
 sudo: required
 dist: trusty
-
-# Get latest install-jdk.sh script
 before_install:
-  - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
-  - wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
-
+- wget https://github.com/sormuras/bach/raw/master/install-jdk.sh
 matrix:
   include:
-# Java 10 "Oracle JDK" (not yet provided by Travis CI)
-    - env: JDK='Oracle JDK 10'
-      install: . ./install-jdk.sh -F 10 -L BCL
+  - env: JDK='Oracle JDK 10'
+    install: ". ./install-jdk.sh -F 10 -L BCL"
+after_success:
+- bash <(curl -s https://codecov.io/bash)
+- "./gradlew assemble"
+- docker -v
+- docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
+- set +e
+- export REPO=aista/form-expert
+- docker build -t $REPO:$TRAVIS_TAG -t $REPO:latest .
+- docker push $REPO
 env:
   global:
-  - secure: KkjFeT1WoodmOJEyreHJpvv5xvbYlDxgmxqiaO+5i/YY8MAPhtsBKsF6ZuN0QUQwiV3irWlJTUsijBijUnyFMqS/tg/xiruLh9t3TPOnI/vrdH/V3BOebV0SZiGWdDlPNXRFxnYAZam0c5FnBdwadTFKYoZDDYsqOtgHwfGCHtcSvcj8eFahwmfwmDzONgfq0BCK+pla42j17zV72scmknsKrCKYSPgqdPRHUqGdOAki+ON18UxMcir1V+VtLm12h4HE1129fSXJ99JNQGKc6zmnvOaJ9b3+J5q1hdlTMHW+5hwWzuXjy7naEG0OCbC9oueMT0CKe1+qtixeMte5kKDSZ8KESZszBeewgq5adQJPhMlfTK4DFHQZXu2HKt1wTnf86CDdxaUMWQlDno3TAm/zJYB5omyIDP7GN9GzyhG5jFx9Fo75qf8cdmRelpg1jxMBp9PVPVIR9mwc5YaDw43ngnhKRu8TgHDQ03tAmzMx6QTEhEFOzazsctw7Iwq7gfDiZsfSHYmXIJsvkM3h0dELE1L+LwJqVKjtAahoYwielvnaaq8fR50AO1EiDTEMzjBIhcCbO2edAPyeKX7Zuf0goxoHXY4AwIvVCEq+t6fT/GQwzA/byH5HK7oNhd7YQI/60E+UZQmlTmuFc9/IYSdIYeOQXQm+K57PY8NgHFU=
-  - secure: Ieeq2tUqFMV2zmzJ1h1TXuoOTT9kenSZWMy08HfpKAXN5AC0LFI6xWpdqTf1MNxCOY+uRzLE8gGEa2BaiqGfBNqfz3I1lWNkYaIT8VyxrrRuIX6O82FTXy+KHmREy9jJ7DorgfcME3Wmrsfr1Ez5ZPrYJtggZbRJb9eJAffjRgns0ChOlckwp5qGtP2arID2cpSIPPvix8ePrsbO7468cTVy8qZQyJ3szNpgLHSKk5qkbfaaZ/8UIrTGu/BC97CjGZfD1WstYsGUgKMOxw7p6NCCt82C37RHVwbHgF7oTSl5gExmNK7yUhPgqdEYSIFoRmL3MSQ/HLukulnENXWnCGptGog9MIWQ20D0MFF+mUTEvjPbnNI8ec8JDgm8AugeSceXGLH5ODg5Kr5seaBCAm5soykoAjwU7VHNbSgOAj4MulDHcMmyvjxluYzlBweyVekN9KaNH8B1tUmibePii5AdyDsqtF7exGb1aNxSiA9QXtjDQ2kSwsgAM3+4AjlGcNjTKP3Bd41US12Il9lbHXp9B6vZniPA18M8PKBnCTiqMcQBSdl2uKnOoI5/kdBz665Ih650ooWt3n/dFvDHckdvbrm10+L/KMl0EkTToA+NwXunzp4OCmfYYLLKFRRBV++KWV2ji5y56XzP7db2dlw/IbnV7gaIlnYiri3/gds=
-
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
-  - ./gradlew assemble
-  - docker -v
-  - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
-  - set +e
-  - export REPO=aista/form-expert
-  - docker build -t $REPO:$TRAVIS_TAG -t $REPO:latest .
-  - docker push $REPO
+  - secure: mpb0TZTQ4+tA8B1KYDgydRERgwUilz4rs3ZE3DDW5PoTZQf32lLxRYZGv8yhZG2/FL8a7qSvKz8W9yX4mgbMAChIAvQYfmFXvi68PZFIP7hTXX5WT5Z43HH8Pa12Q9kLd9DJcnWTYcLujYelnuurP66xFqRK9q/BSUl7+HTtH/W4LGd867KCJZyeoUA4AIobBtA5WNDXTIkjo/iU+LUiOEIp2YgdsWEOFTmeA97lWD0t4QpZ7fNXwPLs6gqe4BCkv3S6W3DOyrDzBmDLtokjrmSYKS+oRFD2URQhfDvshW34cqbqSZRl0szpvj9GaEml7rb67SZamDXo+kZMZRymm8c3XnlESehm7cOW0PkTXwzww98nFyx/HGgiWlMs0xc9YWBYuJJ3pR+H988gfPPG6NaXdKev/0uocC0av2hDD67Qnif8co3weMmw3WZPCz7nxE/7/tGnE3iqEYanIXZvjiNRhyE4Cz7ypajj5MOvo6pvycJOvXL3x1mxG5hfP4smSlWBjkJq8xLPie4ECs9mCf7UHSnk5YwCb7HqygIt3Gs3m1NCs50MVgLmGFHeSyvk+BIHzWr38f6DB5RZLb282slBQXYHh8Blq7S6IU3LTE/StQW9or6VF8dsO6gHI7ba15ZuMEVw108To3PyN2WNCFzZEGw/sqbvgwMxLuwZiz4=
+  - secure: S6sQL1styK9SP/0L5z41M6oZwZbLqYOsKafX8oGJkp1Ix6GDvAZqXG5K4EJSIm87jBTLj+SiYGt7Z/cY1MipDNByZNaqX3dRTD/QxiG3GYP2BOD2aDGHMopPEWfD3SyYYPhpWMSC6aThZCExYVmzsipJjAvxr4Ff/X+86LjWNptaGN5PujGkOrg7vy2zkpCaBMFqzi/a4+RExBqBMgPucDQLSfLdXwqO5sWr0qgCkrx5KXuHXcSLczn/+RyajfQl1EDw1V+bzYsrY/8gKwwavJJo218c1sbCvemCtzFlTtEPVoytHKxkCtCZtvNW+wopWZaf6P5zrXhbiDLSqPbYvYruqOc6WgT7ZxcOmLdIcKUY1LvH2GTsSGJuYx0KkeafrDx91HthsSiw9GDI6gp2jDIUuNKUmn9ZzRXedkKzRmOA3PeDHjGHyavkkWK0UL2kwKNdYEtiyaYCX1P8YcISssuRp5ME3KJma1wr6k/lxpbBWKVKzezZL4uuqOxeynTEzTUSzdAgPvTYjLxzTr6vDVUnRzZ99aPd0E0Zb3OPU7lIHWduJH/G0l7RvmsPTcBadhIGoHj3TjHIrAM/Rpt/A6Doa64dXdPeeeUXrDvFKzU3W5StmfL30YC74Z4JQLlWllG7AFAPYaC2NgoOMMJmBpkHBk1TjDBa9BWJ0VgsrI4=
