@@ -1,12 +1,12 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.2.RELEASE'
+        springBootVersion = '2.0.2.RELEASE'
 	}
 	repositories {
-		mavenCentral()
+        mavenCentral()
 	}
 	dependencies {
-		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
 	}
 }
 
@@ -21,24 +21,24 @@ version = '0.0.1'
 sourceCompatibility = 10
 
 repositories {
-	mavenCentral()
-	maven { url "https://repo.spring.io/snapshot" }
-	maven { url "https://repo.spring.io/milestone" }
+    mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
 }
 
 
 ext {
-	springCloudVersion = 'Finchley.BUILD-SNAPSHOT'
+    springCloudVersion = 'Finchley.BUILD-SNAPSHOT'
 }
 
 dependencies {
-	compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
-	compile('org.springframework.cloud:spring-cloud-starter-netflix-ribbon')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	compile('javax.validation:validation-api')
-	compile "org.springframework.boot:spring-boot-starter-cloud-connectors:${springBootVersion}"
-	compile files("libs/form-expert-common-1.0.jar")
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-client')
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-ribbon')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compile('javax.validation:validation-api')
+    compile "org.springframework.boot:spring-boot-starter-cloud-connectors:${springBootVersion}"
+    compile files("libs/form-expert-common-1.0.jar")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 dependencyManagement {
