@@ -1,17 +1,17 @@
 version: "3"
 
 services:
-  formexpert:
-    build: ./
-    ports:
-      - '8080:8080'
-    depends_on:
-      - mappingservice
-      - discoveryservice
-      - finitehorizonservice
-      - generaltypeservice
-      - labelmultiplexservice
-      - formexpertwarehouse
+#  formexpert:
+#    build: ./
+#    ports:
+#      - '8080:8080'
+#    depends_on:
+#      - mappingservice
+#      - discoveryservice
+#      - finitehorizonservice
+#      - generaltypeservice
+#      - labelmultiplexservice
+#      - formexpertwarehouse
 
   mappingservice:
     image: aista/mapping-service
@@ -101,6 +101,6 @@ services:
     volumes:
       - ./src:/usr/src/spacyservice
     ports:
-      - '8086:8080'
+      - '8087:8080'
     depends_on:
       - discoveryservice
