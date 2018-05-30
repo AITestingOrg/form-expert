@@ -50,33 +50,33 @@ services:
 
   generaltypeservice:
     image: aista/general-type-service
-      volumes:
-        - ./src:/usr/src/general-type-service
-      ports:
-        - '8084:8080'
-      depends_on:
-        - mongo
-        - discoveryservice
+    volumes:
+      - ./src:/usr/src/general-type-service
+    ports:
+      - '8084:8080'
+    depends_on:
+      - mongo
+      - discoveryservice
 
   labelmultiplexservice:
-    image: aista/label-multiplex-service
-      volumes:
-        - ./src:/usr/src/labelmultiplexservice
-      ports:
-        - '8085:8080'
-      depends_on:
-        - postgres
-        - discoveryservice
+    image: aista/label-multiplex-service:0.11
+    volumes:
+      - ./src:/usr/src/labelmultiplexservice
+    ports:
+      - '8085:8080'
+    depends_on:
+      - postgres
+      - discoveryservice
 
   formexpertwarehouse:
       image: aista/form-expert-warehouse
-        volumes:
-          - ./src:/usr/src/formexpertwarehouse
-        ports:
-          - '8086:8080'
-        depends_on:
-          - mongo
-          - discoveryservice
+      volumes:
+        - ./src:/usr/src/formexpertwarehouse
+      ports:
+        - '8086:8080'
+      depends_on:
+        - mongo
+        - discoveryservice
 
   mongo:
     image: mongo:latest
@@ -90,13 +90,17 @@ services:
       - ./data/db:/data/db
     ports:
       - '27017:27017'
-  mongo-seed:
-    build: ./mongo-seed
-    depends_on:
-      - mongo
-    restart: on-failure
 
   discoveryservice:
     image: springcloud/eureka
     ports:
       - "8761:8761"
+
+  spacyservice:
+    image: aista/spacy-service
+    volumes:
+      - ./src:/usr/src/spacyservice
+    ports:
+      - '8086:8080'
+    depends_on:
+      - discoveryservice
