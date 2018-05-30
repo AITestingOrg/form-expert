@@ -1,6 +1,6 @@
 spring:
-  application:
-    name: formexpert
+  profiles:
+    include: default
 
 eureka:
   client:
