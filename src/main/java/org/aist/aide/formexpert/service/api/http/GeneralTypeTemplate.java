@@ -13,7 +13,7 @@ public class GeneralTypeTemplate extends ApiHttpTemplate<String, String> {
         service = Services.GENERALTYPESERVICE;
         port = 8080;
         type = String.class;
-        prefix = "api/v1";
+        prefix = "api/v1/type";
     }
 
     public String getType(String value) {

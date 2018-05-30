@@ -59,7 +59,7 @@ services:
       - discoveryservice
 
   labelmultiplexservice:
-    image: aista/label-multiplex-service:0.11
+    image: aista/label-multiplex-service
     volumes:
       - ./src:/usr/src/labelmultiplexservice
     ports:
