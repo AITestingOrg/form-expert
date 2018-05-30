@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("api/v1/abstraction")
+@RequestMapping("/api/v1")
 public class AbstractionController {
     private ClassifiersFactory classifiersFactory;
 
@@ -23,7 +23,7 @@ public class AbstractionController {
         this.classifiersFactory = classifiersFactory;
     }
 
-    @GetMapping("/")
+    @GetMapping("abstraction")
     public ResponseEntity<Form> getAbstraction(@RequestBody Form form) {
         try {
             var queue = new LinkedList<Filter<Form>>();
