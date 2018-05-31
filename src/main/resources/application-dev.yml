@@ -7,5 +7,6 @@ eureka:
     serviceUrl:
       defaultZone: http://discoveryservice:8761/eureka/
     register-with-eureka: true
+    fetch-registry: true
 aist:
   use_ssl: false

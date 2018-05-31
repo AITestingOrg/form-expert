@@ -96,6 +96,13 @@ services:
     ports:
       - "8761:8761"
 
+  hystrixdashboard:
+      build: ../histrix-dashboard
+      ports:
+        - "8089:8080"
+      depends_on:
+        - discoveryservice
+
   spacyservice:
     image: aista/spacy-service
     volumes:

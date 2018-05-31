@@ -3,6 +3,7 @@ package org.aist.aide.formexpert.domain.factories;
 import java.util.HashMap;
 import java.util.logging.Logger;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import org.aist.aide.formexpert.common.models.Form;
 import org.aist.aide.formexpert.common.models.Mapping;
 import org.aist.aide.formexpert.domain.models.Services;

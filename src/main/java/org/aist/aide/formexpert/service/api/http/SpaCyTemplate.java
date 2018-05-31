@@ -21,7 +21,7 @@ public class SpaCyTemplate extends ApiHttpTemplate<SpaCyAbstractionDto, FormFiel
     public String getAbstraction(FormField field) {
         String type;
         try {
-            return this.create("", field).getAbstraction();
+            return this.create("", field);
         } catch (HttpClientErrorException e) {
             return null;
         }

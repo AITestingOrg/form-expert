@@ -55,7 +55,7 @@ public abstract class ApiHttpTemplate<T, K> {
         return exchange.getBody();
     }
 
-    protected T create(String path, K obj) {
+    protected String create(String path, K obj) {
         String uri = buildUri(path);
         logger.info("Sending a POST request to " + uri);
         logger.info("obj to send: " + obj);
@@ -63,11 +63,11 @@ public abstract class ApiHttpTemplate<T, K> {
         headers.setContentType(MediaType.APPLICATION_JSON);
         HttpEntity<K> entity = new HttpEntity<>(obj, headers);
         logger.info("entity to send: " + entity);
-        ResponseEntity<T> exchange = this.restTemplate.exchange(
+        ResponseEntity<String> exchange = this.restTemplate.exchange(
             uri,
             HttpMethod.POST,
             entity,
-            type);
+            String.class);
         logger.info("Got a reply back");
         logger.info("Reply: " + exchange);
         return exchange.getBody();
@@ -103,7 +103,7 @@ public abstract class ApiHttpTemplate<T, K> {
             }
             url.append(prefix);
         }
-        if (path.charAt(0) != '/' && url.charAt(url.length() - 1) != '/') {
+        if (path != null && !path.isEmpty() && path.charAt(0) != '/' && url.charAt(url.length() - 1) != '/') {
             url.append("/");
         }
         url.append(path);
