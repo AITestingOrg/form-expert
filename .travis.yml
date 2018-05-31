@@ -9,7 +9,7 @@ matrix:
     install: ". ./install-jdk.sh -F 10 -L BCL"
 after_success:
 - bash <(curl -s https://codecov.io/bash)
-- "./gradlew assemble"
+- ./gradlew assemble
 - docker -v
 - docker login -u=$DOCKER_USERNAME -p=$DOCKER_PASSWORD
 - set +e

@@ -93,7 +93,7 @@ public abstract class ApiHttpTemplate<T, K> {
         } else {
             url.append("http://");
         }
-        url.append(service.name().toLowerCase());
+        url.append(service.name());
         if (port > 0) {
             url.append(":").append(port);
         }

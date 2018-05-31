@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 public class LabelMultiplexerTemplate extends ApiHttpTemplate<Label, Label> {
     public LabelMultiplexerTemplate(@Autowired RestTemplate restTemplate) {
         super(restTemplate);
-        service = Services.LABELSERVICE;
+        service = Services.LABELMULTIPLEXER;
         port = 8080;
         type = Label.class;
         prefix = "api/v1/in-label";

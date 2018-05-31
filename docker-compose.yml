@@ -1,17 +1,17 @@
 version: "3"
 
 services:
-  formexpert:
-    build: ./
-    ports:
-      - '8080:8080'
-    depends_on:
-      - mappingservice
-      - discoveryservice
-      - finitehorizonservice
-      - generaltypeservice
-      - labelmultiplexservice
-      - formexpertwarehouse
+#  formexpert:
+#    build: ./
+#    ports:
+#      - '8080:8080'
+#    depends_on:
+#      - mappingservice
+#      - discoveryservice
+#      - finitehorizonservice
+#      - generaltypeservice
+#      - labelmultiplexservice
+#      - formexpertwarehouse
 
   mappingservice:
     image: aista/mapping-service
@@ -29,7 +29,7 @@ services:
     image: postgres
     restart: always
     environment:
-      POSTGRES_DB: 'mapping_db'
+      POSTGRES_DB: 'labels'
       POSTGRES_PASSWORD: "postgres"
       POSTGRES_USER: "postgres"
       PGDATA: ./postgres-data
@@ -59,7 +59,7 @@ services:
       - discoveryservice
 
   labelmultiplexservice:
-    image: aista/label-multiplex-service:0.11
+    image: aista/label-multiplex-service
     volumes:
       - ./src:/usr/src/labelmultiplexservice
     ports:
@@ -92,7 +92,7 @@ services:
       - '27017:27017'
 
   discoveryservice:
-    image: springcloud/eureka
+    build: ../eureka2
     ports:
       - "8761:8761"
 
