@@ -14,7 +14,7 @@ public class FiniteHorizonTemplate extends ApiHttpTemplate<String, FormField> {
         service = Services.FINITEHORIZONSERVICE;
         port = 8080;
         type = String.class;
-        prefix = "api/v1/abstractions";
+        prefix = "api/v1/finitetype";
     }
 
     public String getAbstraction(FormField field) {
